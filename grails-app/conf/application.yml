@@ -1,0 +1,185 @@
+---
+grails:
+    profile: web-plugin
+    codegen:
+        defaultPackage: grails.api.framework
+info:
+    app:
+        name: '@info.app.name@'
+        version: 0.1
+        grailsVersion: '@info.app.grailsVersion@'
+spring:
+    groovy:
+        template:
+            check-template-location: false
+
+---
+grails:
+    mime:
+        disable:
+            accept:
+                header:
+                    userAgents:
+                        - Gecko
+                        - WebKit
+                        - Presto
+                        - Trident
+        types:
+            all: '*/*'
+            atom: application/atom+xml
+            css: text/css
+            csv: text/csv
+            form: application/x-www-form-urlencoded
+            html:
+              - text/html
+              - application/xhtml+xml
+            js: text/javascript
+            json:
+              - application/json
+              - text/json
+            multipartForm: multipart/form-data
+            rss: application/rss+xml
+            text: text/plain
+            hal:
+              - application/hal+json
+              - application/hal+xml
+            xml:
+              - text/xml
+              - application/xml
+    urlmapping:
+        cache:
+            maxsize: 1000
+    controllers:
+        defaultScope: singleton
+    converters:
+        encoding: UTF-8
+    hibernate:
+        cache:
+            use_second_level_cache: true
+            use_query_cache: true
+            provider_class: 'org.hibernate.cache.EhCacheProvider'
+            region:
+                factory_class: 'org.hibernate.cache.ehcache.EhCacheRegionFactory'
+    views:
+        default:
+            codec: html
+        gsp:
+            encoding: UTF-8
+            htmlcodec: xml
+            codecs:
+                expression: html
+                scriptlets: html
+                taglib: none
+                staticparts: none
+    tomcat:
+        jvmArgs:
+            -'-Xms1024m'
+            -'-Xmx2048m'
+            -'-XX:MaxNewSize=384m'
+            -'-XX:MaxPermSize=128m'
+            -'-XX:ParallelGCThreads=2'
+            -'-XX:+CMSClassUnloadingEnabled'
+            -'-XX:+UseConcMarkSweepGC'
+            -'-XX:+CMSIncrementalMode'
+            -'-XX:+CMSIncrementalPacing'
+            -'-XX:CMSIncrementalDutyCycle=10'
+            -'-XX:+UseParNewGC'
+            -'-XX:MaxGCPauseMillis=50'
+            -'-XX:MaxGCMinorPauseMillis=50'
+            -'-server'
+
+environments:
+    development:
+        server:
+            context-path: ''
+            port: 8080
+    production:
+        server:
+            context-path: ''
+            port: 8080
+
+---
+environments:
+    development:
+        grails:
+            mongodb:
+                connectionString: "mongodb://127.0.0.1:27017/testdb"
+                autoConnectRetry: true
+                connectTimeout: 0
+                maxWaitTime: 120000
+                socketTimeout: 0
+                socketKeepAlive: false
+                writeNumer: 0
+                writeTimeout: 0
+                writeFsync: false
+        dataSource:
+            dbCreate: create-drop
+    test:
+        grails:
+            mongodb:
+                connectionString: "mongodb://127.0.0.1:27017/testdb"
+                autoConnectRetry: true
+                connectTimeout: 0
+                maxWaitTime: 120000
+                socketTimeout: 0
+                socketKeepAlive: false
+                writeNumer: 0
+                writeTimeout: 0
+                writeFsync: false
+        dataSource:
+            dbCreate: create-drop
+    production:
+        grails:
+            mongodb:
+                connectionString: "mongodb://127.0.0.1:27017/testdb"
+                autoConnectRetry: true
+                connectTimeout: 0
+                maxWaitTime: 120000
+                socketTimeout: 0
+                socketKeepAlive: false
+                writeNumer: 0
+                writeTimeout: 0
+                writeFsync: false
+        dataSource:
+            dbCreate: create-drop
+
+---
+apitoolkit:
+    apiName: api
+    attempts: 5
+    roles: {ROLE_USER,ROLE_ROOT,ROLE_ADMIN,ROLE_ARCH}
+    apichain:
+        limit:3
+    rest:
+        postcrement: false
+    chaining:
+        enabled: true
+    batching:
+        enabled: true
+    encoding: UTF-8
+    user:
+        roles: {ROLE_USER}
+    admin:
+        roles: {ROLE_ROOT,ROLE_ADMIN,ROLE_ARCH}
+    serverType: master
+    iostate:
+        preloadDir: /home/owenrubel/.iostate
+
+---
+server:
+    tomcat:
+        backgroundProcessorDelay: 30
+        maxThreads: 250
+        uriEncoding: UTF-8
+        compression: off
+        compressableMimeTypes: application/json,text/json,application/xml,text/xml,text/plain
+
+---
+root:
+    login: admin
+    password: Al1c3Inj@1L
+    email: orubel@gmail.com
+
+
+
+
