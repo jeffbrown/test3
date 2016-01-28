@@ -38,7 +38,7 @@ class BatchInterceptor{
     boolean after() {
         println("#### BATCHINTERCEPTOR AFTER")
         println("BatchLength("+request.getAttribute('batchLength')+") > BatchInc("+(request.getAttribute('batchInc')+1)+")")
-        if(request.getAttribute('batchLength')>(request.getAttribute('batchInc')+1)){
+        if(request.getAttribute('batchLength')>=(request.getAttribute('batchInc')+1)){
             forward(params)
             return false
         }
