@@ -26,24 +26,33 @@ class BatchInterceptor{
     boolean before() {
         println("#### BATCHINTERCEPTOR BEFORE")
 
-        if (!request.getAttribute('batchInc')) {
-            request.setAttribute('batchInc',0)
-        }else{
-            request.setAttribute('batchInc',request.getAttribute('batchInc').toInteger() + 1)
+        try {
+            if(!request.getAttribute('batchLength')){ request.setAttribute('batchLength',3) }
+            if (!request.getAttribute('batchInc')) {
+                println('init batchinc')
+                request.setAttribute('batchInc', 0)
+            } else {
+                println('increment batchinc')
+                request.setAttribute('batchInc', request.getAttribute('batchInc').toInteger() + 1)
+            }
+            return true
+        }catch(Exception e) {
+            println("[BatchInterceptor :: preHandler] : Exception - full stack trace follows:"+ e)
         }
-        if(!request.getAttribute('batchLength')){ request.setAttribute('batchLength',3) }
-        return true
     }
 
     boolean after() {
         println("#### BATCHINTERCEPTOR AFTER")
-        println("BatchLength("+request.getAttribute('batchLength')+") > BatchInc("+(request.getAttribute('batchInc'))+")")
-        if(request.getAttribute('batchLength')>=(request.getAttribute('batchInc'))){
-            request.setAttribute('batchInc',request.getAttribute('batchInc')+1)
-            forward(params)
-            return false
+        try{
+            println("BatchLength("+request.getAttribute('batchLength')+") > BatchInc("+(request.getAttribute('batchInc'))+")")
+            if(request.getAttribute('batchLength')>=(request.getAttribute('batchInc'))){
+                forward(params)
+                return false
+            }
+            false
+        }catch(Exception e) {
+            println("[BatchInterceptor :: postHandler] : Exception - full stack trace follows:"+ e)
         }
-        false
     }
 
 }
