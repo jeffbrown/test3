@@ -10,15 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired
 
 class BatchInterceptor{
 
-
-    BatchRequestService batchRequestService
-
-    String apiVersion
-    String entryPoint
-
     BatchInterceptor() {
-        apiVersion = Metadata.current.getApplicationVersion()
-        entryPoint = "v${apiVersion}"
+        String apiVersion = Metadata.current.getApplicationVersion()
+        String entryPoint = "v${apiVersion}"
 
         match(uri:"/${entryPoint}/**")
     }
