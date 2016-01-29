@@ -24,7 +24,7 @@ class BatchInterceptor{
             if(!request.getAttribute('batchLength')){ request.setAttribute('batchLength',3) }
             if (!request.getAttribute('batchInc')) {
                 println('init batchinc')
-                request.setAttribute('batchInc', 0)
+                request.setAttribute('batchInc', 1)
             } else {
                 println('increment batchinc')
                 request.setAttribute('batchInc', request.getAttribute('batchInc').toInteger() + 1)
