@@ -1,8 +1,19 @@
 # testapp
 
-curl --verbose --request POST --data "j_username=admin&j_password=Al1c3Inj@1L&_spring_security_remember_me=checked" http://localhost:8080/auth/j_spring_security_check --cookie-jar cookies.txt
+in BatchInterceptor we set:
 
-// GET TEST
+        if (!request.getAttribute('batchInc')) {
+            request.setAttribute('batchInc',0)
+        }else{
+            request.setAttribute('batchInc',request.getAttribute('batchInc').toInteger() + 1)
+        }
+        if(!request.getAttribute('batchLength')){ request.setAttribute('batchLength',3) }
+        
+
+'batchLength' establishes loop size
+'batchInc' increments with each pass of the loop
+
+
 curl --verbose --request GET --header "Content-Type: application/json" "http://localhost:8080/v0.1/post/show/1" --cookie cookies.txt
 
-Application should loop THREE TIMES 
+Application should loop THREE TIMES. Loops infinitely.
